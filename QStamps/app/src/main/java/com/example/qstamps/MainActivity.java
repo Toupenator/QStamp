@@ -3,17 +3,26 @@ package com.example.qstamps;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.qstamps.data.model.LoginParams;
+import com.example.qstamps.data.remote.APIService;
+import com.example.qstamps.data.remote.ApiUtils;
+import com.example.qstamps.data.remote.RetrofitClientInstance;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+    private APIService mApiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         final Button signUp = findViewById(R.id.btn_signup);
         final EditText input_userName = findViewById(R.id.input_username);
         final EditText input_password = findViewById(R.id.input_password);
+
+
 
         signUp.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -68,36 +79,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnSignInButton(View view, final
     String userName, final String userPassword){
+        mApiService = ApiUtils.getAPIService();
+        getLoginResult(userName);
 
-        //Create handle for the RetrofitInstance interface
-        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-        Call<Boolean> call = service.getLoginResult(userName);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                System.out.println(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                System.out.println("failure\n");
-            }
-        });
-
-        /*
-        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-        intent.putExtra("firstName",firstName);
-        intent.putExtra("firstName",lastName);
-
-        intent.putExtra("userType","employee");
-        intent.putExtra("id",ds.getKey());
-        startActivityForResult(intent, 0);
-        */
     }
 
 
 
+    public void getLoginResult(String userName) {
+        mApiService.getLoginResult(userName).enqueue(new Callback<LoginParams>() {
+            @Override
+            public void onResponse(Call<LoginParams> call, Response<LoginParams> response) {
 
+                if(response.isSuccessful()) {
+                    showResponse(response.body().toString());
+                    Log.i(TAG, "post submitted to API." + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginParams> call, Throwable t) {
+                Log.e(TAG, "\n\nUnable to submit post to API.\n\n");
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void showResponse(String response) {
+        System.out.println(response);
+    }
 
 
 }

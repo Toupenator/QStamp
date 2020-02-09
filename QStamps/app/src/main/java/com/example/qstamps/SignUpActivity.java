@@ -33,22 +33,22 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (uname.getText() != null)
                 {
-
+                    /*
                     //Create handle for the RetrofitInstance interface
                     GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
-                    Call<Boolean> call = service.getLoginResult(uname.getText().toString());
-                    call.enqueue(new Callback<Boolean>() {
+                    Call<LoginResults> call = service.getLoginResult();
+                    call.enqueue(new Callback<LoginResults>() {
                         @Override
-                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        public void onResponse(Call<LoginResults> call, Response<LoginResults> response) {
                             System.out.println(response.body());
                         }
 
                         @Override
-                        public void onFailure(Call<Boolean> call, Throwable t) {
+                        public void onFailure(Call<LoginResults> call, Throwable t) {
                             System.out.println("failure\n");
                         }
                     });
-
+                    */
 
                     String newString = uname.getText().toString();
                 }

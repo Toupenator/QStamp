@@ -115,12 +115,16 @@ def linkStamp():
 
 #method allows a user to add or 'link' a stamp to their profile
 @app.route('/login', methods=['POST'])
-def login(username):
+def login():
+    req_data = request.get_json()  # store the request data
+
+    # extract the data necessary from the request
+    username = req_data
+
     result = db.child('Users').child(username).get()
+    val = result.val()
 
-    #HANDLE IF THE USER WASN'T FOUND
-
-    return False
+    return result
 
 def queryMySendingStamps(username):
     stamps = db.child('Users').child(username).child('stamps_sending').get()
