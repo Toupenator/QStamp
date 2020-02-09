@@ -67,11 +67,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_account"
+                android:id="@+id/btn_scan"
                 android:layout_width="197dp"
                 android:layout_height="41dp"
                 android:layout_weight="1"
-                android:background="@drawable/scan" />
+                android:background="@drawable/btm_scan" />
 
             <Space
                 android:layout_width="77dp"
