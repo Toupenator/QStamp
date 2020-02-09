@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1064177743414",
+    "firebase_url": "https://uottahack2020-63b73.firebaseio.com",
+    "project_id": "uottahack2020-63b73",
+    "storage_bucket": "uottahack2020-63b73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064177743414:android:774f8a1a1c2d9980b0ca97",
+        "android_client_info": {
+          "package_name": "com.example.qstamps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064177743414-4109389tclp2ua9n2mc7udb1fnu9p8l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDagteqLuwzvLr5kmGdGKJ0rp0ayPlg_LY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064177743414-4109389tclp2ua9n2mc7udb1fnu9p8l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
