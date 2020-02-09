@@ -78,28 +78,23 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult (intent,0);
     }
 
-    public void OnSignInButton(View view, final
-    String userName, final String userPassword){
+    public void OnSignInButton(View view, final String userName, final String userPassword){
         mApiService = ApiUtils.getAPIService();
-        getLoginResult(userName, userPassword);
-
-    }
 
 
-
-    public void getLoginResult(String userName, String password) {
-        mApiService.getLoginResult(userName, password).enqueue(new Callback<PostStatus>() {
+        mApiService.getLoginResult(userName, userPassword).enqueue(new Callback<PostStatus>() {
             @Override
             public void onResponse(Call<PostStatus> call, Response<PostStatus> response) {
 
                 if(response.isSuccessful()) {
-                    String status = response.body().getStatus();
-                    if (status == "success") {
+                    String status = response.body().getStatus().trim();
 
+                    if (status.equals("success")) {
 
-                        //TODO INTENT HERE TO HOME PAGE
+                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivityForResult (intent,0);
                     }
-                    if (status == "user_not_found") {
+                    if (status.equals("user_not_found")) {
 
 
                         //TODO DISPLAY HERE USER NOT FOUND
@@ -115,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+    }
+
+
+
+    public void getLoginResult(String userName, String password) {
+
     }
 
     public void showResponse(String response) {

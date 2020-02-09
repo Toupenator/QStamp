@@ -118,15 +118,19 @@ def linkStamp():
 def login():
     username = request.form.get('username')
 
-    print('username entered: ' + username)
-    if not (username == ""):
-        user = db.child('Users').child(username).get()
-        if user.val() == None:
-            return jsonify(username='user_not_found')
-        else:
-            return jsonify(username='success')
-    else:
+    if (username == ""):
         return jsonify(status='user_not_found')
+
+
+    user = db.child('Users').child(username).get()
+    print(user.val())
+
+    if user.val() == None:
+        return jsonify(status='user_not_found')
+    return jsonify(status='success')
+
+
+
 
 
 def queryMySendingStamps(username):
