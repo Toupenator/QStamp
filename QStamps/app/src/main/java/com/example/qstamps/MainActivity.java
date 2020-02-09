@@ -11,6 +11,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.qstamps.data.model.LoginParams;
+import com.example.qstamps.data.model.PostStatus;
 import com.example.qstamps.data.remote.APIService;
 import com.example.qstamps.data.remote.ApiUtils;
 import com.example.qstamps.data.remote.RetrofitClientInstance;
@@ -80,25 +81,36 @@ public class MainActivity extends AppCompatActivity {
     public void OnSignInButton(View view, final
     String userName, final String userPassword){
         mApiService = ApiUtils.getAPIService();
-        getLoginResult(userName);
+        getLoginResult(userName, userPassword);
 
     }
 
 
 
-    public void getLoginResult(String userName) {
-        mApiService.getLoginResult(userName).enqueue(new Callback<LoginParams>() {
+    public void getLoginResult(String userName, String password) {
+        mApiService.getLoginResult(userName, password).enqueue(new Callback<PostStatus>() {
             @Override
-            public void onResponse(Call<LoginParams> call, Response<LoginParams> response) {
+            public void onResponse(Call<PostStatus> call, Response<PostStatus> response) {
 
                 if(response.isSuccessful()) {
-                    showResponse(response.body().toString());
+                    String status = response.body().getStatus();
+                    if (status == "success") {
+
+
+                        //TODO INTENT HERE TO HOME PAGE
+                    }
+                    if (status == "user_not_found") {
+
+
+                        //TODO DISPLAY HERE USER NOT FOUND
+                    }
+
                     Log.i(TAG, "post submitted to API." + response.body().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginParams> call, Throwable t) {
+            public void onFailure(Call<PostStatus> call, Throwable t) {
                 Log.e(TAG, "\n\nUnable to submit post to API.\n\n");
                 t.printStackTrace();
             }

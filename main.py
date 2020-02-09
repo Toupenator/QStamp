@@ -3,7 +3,7 @@ import qrCodes
 import keyGeneration
 
 #Flask stuff
-from flask import Flask, request
+from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
 
 #Firebase stuff
@@ -116,15 +116,18 @@ def linkStamp():
 #method allows a user to add or 'link' a stamp to their profile
 @app.route('/login', methods=['POST'])
 def login():
-    req_data = request.get_json()  # store the request data
+    username = request.form.get('username')
 
-    # extract the data necessary from the request
-    username = req_data
+    print('username entered: ' + username)
+    if not (username == ""):
+        user = db.child('Users').child(username).get()
+        if user.val() == None:
+            return jsonify(username='user_not_found')
+        else:
+            return jsonify(username='success')
+    else:
+        return jsonify(status='user_not_found')
 
-    result = db.child('Users').child(username).get()
-    val = result.val()
-
-    return result
 
 def queryMySendingStamps(username):
     stamps = db.child('Users').child(username).child('stamps_sending').get()
