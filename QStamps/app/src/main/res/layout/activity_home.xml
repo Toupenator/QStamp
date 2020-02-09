@@ -53,26 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="30dp" />
 
-        <ImageView
-            android:id="@+id/titled_loggedinas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/title_loggedinas" />
-
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/loggedin_role"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/box_emptyblue"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -85,10 +68,10 @@
 
             <Button
                 android:id="@+id/btn_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="197dp"
+                android:layout_height="41dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_account" />
+                android:background="@drawable/SCAN" />
 
             <Space
                 android:layout_width="77dp"
@@ -98,7 +81,7 @@
             <Button
                 android:id="@+id/btn_signout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="right"
                 android:background="@drawable/btn_signout" />
 
