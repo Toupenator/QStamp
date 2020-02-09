@@ -36,8 +36,6 @@ public class HomeActivity extends AppCompatActivity {
             });
 
 
-
-
         btn_signout.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 OnSignOutButton(v);
