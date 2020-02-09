@@ -2,7 +2,7 @@ package com.example.qstamps.data.remote;
 import com.example.qstamps.ScanParams;
 import com.example.qstamps.data.model.LoginParams;
 import com.example.qstamps.data.model.PostStatus;
-import com.example.qstamps.scanResult;
+import com.example.qstamps.data.model.ScanStatus;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,14 +15,22 @@ import retrofit2.http.POST;
 public interface APIService {
 
 
+
     @POST("/scan")
-    Call<scanResult> getScanResult(@Body ScanParams param);
+    @FormUrlEncoded
+    Call<ScanStatus> getScanResult(@Field("username") String uname,
+                                   @Field("scanned_key") String key);
+
 
     //@Headers({"Content-Type: application/json"})
     @POST("/login")
     @FormUrlEncoded
     Call<PostStatus> getLoginResult(@Field("username") String uname,
                                     @Field("password") String password);
+
+
+
+
 
     /*
     Call<LoginParams> savePost(@Field("username") String uname,

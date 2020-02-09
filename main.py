@@ -163,7 +163,7 @@ def generateStamp():
         'reciever' : ""
     }
     }
-    db.child('Stamps').set(stamp)   #add the stamp to the master stamps list
+    db.child('Stamps').push(stamp)   #add the stamp to the master stamps list
 
 
 
@@ -190,7 +190,7 @@ def scanStamp():
     for key in mySendingStampsDict:
         if scanned_key == mySendingStampsDict[key]:  #we have a found a stamp key match
             #I am sender checking the code, probably trying to edit, promt user to edit
-            return "sender trying to edit!"
+            return jsonify(sender="", reciever="", status='sender-editing');
 
     #get a dictionary of the user's recieving stamps
     myRecievingStampsDict = queryMyRecievingStamps(myUsername)
@@ -222,7 +222,7 @@ def scanStamp():
 
 
             #I have found the scanned stamp in my list and have dealt with it
-            return "reciever recieved mail!"
+            return jsonify(sender=sender, reciever="", status='recieved');
 
 
     #I am not a sender OR a reciever, I intercepted the mail, show the interceptor who the sender/reciever is
@@ -236,8 +236,11 @@ def scanStamp():
             reciever = db.child('Stamps').child(key).child('reciever')
 
             #TODO notify the reciever that I have found their mail
-            return {'sender': sender, 'reciever': reciever}
+            return jsonify(sender=sender, reciever=reciever, status='intercepted');
+        else:
+            return jsonify(sender="", reciever="", status='prompt-to-link');
 
+            #TODO I am sender trying to purchase postage, redirect user to postage purchasing
 
 #run our app
 if __name__ == '__main__':
