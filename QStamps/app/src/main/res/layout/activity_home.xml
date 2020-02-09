@@ -71,7 +71,7 @@
                 android:layout_width="197dp"
                 android:layout_height="41dp"
                 android:layout_weight="1"
-                android:background="@drawable/SCAN" />
+                android:background="@drawable/scan" />
 
             <Space
                 android:layout_width="77dp"

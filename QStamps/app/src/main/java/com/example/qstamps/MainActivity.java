@@ -9,6 +9,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -56,13 +60,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     public void OnSignUpButton(View view){
         Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
         startActivityForResult (intent,0);
     }
 
-    public void OnSignInButton(View view, final String userName, final String userPassword){
+    public void OnSignInButton(View view, final
+    String userName, final String userPassword){
 
+        //Create handle for the RetrofitInstance interface
+        GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
+        Call<Boolean> call = service.getLoginResult(userName);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                System.out.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                System.out.println("failure\n");
+            }
+        });
+
+        /*
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         intent.putExtra("firstName",firstName);
         intent.putExtra("firstName",lastName);
@@ -70,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("userType","employee");
         intent.putExtra("id",ds.getKey());
         startActivityForResult(intent, 0);
-
+        */
     }
 
 
